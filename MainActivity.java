@@ -1,47 +1,55 @@
-package com.example.hifzrecord;
+package com.example.hifzstudents;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class MainActivity extends AppCompatActivity {
 
-    Button github, homeButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        github = findViewById(R.id.github);
-        homeButton = findViewById(R.id.homeButton);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Button addStudentButton = findViewById(R.id.addStudent);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Button addStudentRecordButton = findViewById(R.id.addStudentRecord);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Button searchStudentButton = findViewById(R.id.searchStudent);
+        Button gitHubButton = findViewById(R.id.gitHub);
 
-        homeButton.setOnClickListener(new View.OnClickListener() {
+        addStudentButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Home_Page.class);
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, addStudents.class));
+            }
+        });
+
+        addStudentRecordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, addStudentRecord.class));
+            }
+        });
+
+        searchStudentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, searchStudent.class));
+            }
+        });
+
+        gitHubButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://github.com/alihamza48/Progrees-Maintainance-App";
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
                 startActivity(intent);
             }
         });
-
-        github.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String url = "https://github.com/alihamza48/Progrees-Maintainance-App";
-
-                // Create an intent with ACTION_VIEW and the URL
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-
-                // Verify if there's an activity that can handle the intent
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    // Start the activity to open the URL
-                    startActivity(intent);
-                }
-            }
-        });
-
     }
 }
